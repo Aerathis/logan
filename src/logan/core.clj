@@ -13,7 +13,7 @@
   (s3/list-objects cred bucket-name {:marker next-marker :max-keys 1000}))
 
 (defn get-logs
-  "Get log object keys"
+  "Get log objects"
   [bucket-name next-marker coll]
   (let [log-part (pull-elb-log-segment bucket-name next-marker)]
     (if (:truncated? log-part)
