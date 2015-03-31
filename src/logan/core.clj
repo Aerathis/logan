@@ -4,8 +4,14 @@
   (:gen-class))
 
 
-(def cred {:access-key "Your key here", :secret-key "Your secret here"})
-(def log-bucket "your bucket here")
+(defn get-creds-from-file
+  "Get credentials and log-bucket name from file"
+  []
+  (read-string (slurp "creds")))
+
+(def cred (get-creds-from-file))
+
+(def log-bucket (clojure.string/trim-newline (slurp "bucket")))
 
 (defn pull-elb-log-segment
   "Get 1000 logs from elb log bucket"
