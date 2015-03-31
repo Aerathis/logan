@@ -43,7 +43,7 @@
                    (cons (char c) (lazy-seq (step))))))]
     (lazy-seq (step))))
 
-(defn get-contents
+(defn get-content
   "Get the contents of an object key truncates the final newline"
   [key]
   (clojure.string/join "" (drop-last (lazy-input 
