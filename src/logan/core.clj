@@ -49,11 +49,15 @@
   (clojure.string/join "" (drop-last (lazy-input 
                            (:content (s3/get-object cred log-bucket key))))))
 
+(defn parse-record
+  "Parse the string record of an ELB log and return a map"
+  [record-string]
+  (clojure.string/split record-string #" "))
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (let [test-data (get-logs log-bucket nil nil)]
+  (let [test-data (get-all-logs log-bucket)]
     (println (type test-data))
     (println (count test-data))
-    (println (count (nth test-data 7)))
-    (println (type (nth test-data 7)))))
+    (println (parse-record (get-content (:key (nth test-data 7)))))))
